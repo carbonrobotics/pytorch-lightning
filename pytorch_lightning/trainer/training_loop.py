@@ -146,8 +146,8 @@ from pytorch_lightning.core.lightning import LightningModule
 from pytorch_lightning.loggers import LightningLoggerBase
 from pytorch_lightning.overrides.data_parallel import LightningDistributedDataParallel, LightningDataParallel
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from pytorch_lightning.trainer.supporters import TensorRunningAccum
 from pytorch_lightning.utilities import rank_zero_warn
+from pytorch_lightning.trainer.supporters import TensorRunningMean
 
 try:
     from apex import amp
@@ -337,7 +337,7 @@ class TrainerTrainLoopMixin(ABC):
                 self.accumulation_scheduler.on_epoch_start(self, self.get_model())
 
                 # stores accumulated grad fractions per batch
-                self.batch_loss_value = TensorRunningAccum(
+                self.batch_loss_value = TensorRunningMean(
                     window_length=self.accumulate_grad_batches
                 )
 
