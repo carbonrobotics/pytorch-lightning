@@ -130,10 +130,10 @@ def _maybe_unwrap_optimized(model: object) -> "pl.LightningModule":
 def _verify_strategy_supports_compile(model: "pl.LightningModule", strategy: Strategy) -> None:
     if model._compiler_ctx is not None:
         supported_strategies = (SingleDeviceStrategy, DDPStrategy, FSDPStrategy)
-        if not isinstance(strategy, supported_strategies):
-            supported_strategy_names = ", ".join(s.__name__ for s in supported_strategies)
-            raise RuntimeError(
-                f"Using a compiled model is incompatible with the current strategy: `{type(strategy).__name__}`."
-                f" Only {supported_strategy_names} support compilation. Either switch to one of the supported"
-                " strategies or avoid passing in compiled model."
-            )
+        # if not isinstance(strategy, supported_strategies):
+        #     supported_strategy_names = ", ".join(s.__name__ for s in supported_strategies)
+        #     raise RuntimeError(
+        #         f"Using a compiled model is incompatible with the current strategy: `{type(strategy).__name__}`."
+        #         f" Only {supported_strategy_names} support compilation. Either switch to one of the supported"
+        #         " strategies or avoid passing in compiled model."
+        #     )
